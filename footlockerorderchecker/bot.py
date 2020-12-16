@@ -60,7 +60,7 @@ def main():
             response = requests.post('https://www.footlocker.com/api/users/orders/status', headers=headers, params=params, data=data)
             response = json.loads(response.text)
             try:
-                print('Order Email: ' + email + ', Order Number: ' + ordernum + ', Order Status: ' + response['orderStatus'] + ' ,Order Total: ' + response['orderTotal'])
+                print('Order Email: ' + email + ', Order Number: ' + ordernum + ', Order Status: ' + response['orderStatus'] + ', Order Total: ' + response['orderTotal'])
             except:
                 print('Order Email: ' + email + ', Order Number: ' + ordernum + ", Order Status: Order not found \n")
             c=c+1
