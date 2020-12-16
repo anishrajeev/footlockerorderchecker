@@ -31,9 +31,11 @@ def main():
             try:
                 newlineindex = input.index('\n')
                 ordernum = input[commaindex + 2:newlineindex]
+                input = input[newlineindex + 1:]
             except:
                 ordernum = input[commaindex + 2:]
-            print(email + ' ' + ordernum)
+            email = email.strip()
+            ordernum = ordernum.strip()
             headers = {
                 'authority': 'www.footlocker.com',
                 'pragma': 'no-cache',
@@ -56,10 +58,11 @@ def main():
             )
             data = '{"code":"'+ordernum+'","customerEmail":"'+email+'"}'
             response = requests.post('https://www.footlocker.com/api/users/orders/status', headers=headers, params=params, data=data)
-            print(response.text + '\n')
-            #response = json.loads(response.text)
-            if(c<int(num)-1):
-                input = input[newlineindex+1:]
+            response = json.loads(response.text)
+            try:
+                print('Order Email: ' + email + ', Order Number: ' + ordernum + ', Order Status: ' + response['orderStatus'] + ' ,Order Total: ' + response['orderTotal'])
+            except:
+                print('Order Email: ' + email + ', Order Number: ' + ordernum + ", Order Status: Order not found \n")
             c=c+1
 if __name__ == "__main__":
     main()
